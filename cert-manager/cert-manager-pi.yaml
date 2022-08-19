@@ -6,7 +6,7 @@ metadata:
     tkg.tanzu.vmware.com/tanzu-package-ClusterRoleBinding: cert-manager-my-packages-cluster-rolebinding
     tkg.tanzu.vmware.com/tanzu-package-ServiceAccount: cert-manager-my-packages-sa
   name: cert-manager
-  namespace: packages
+  namespace: my-packages
 spec:
   serviceAccountName: cert-manager-my-packages-sa
   packageRef:
