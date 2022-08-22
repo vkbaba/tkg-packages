@@ -1,0 +1,20 @@
+apiVersion: kappctrl.k14s.io/v1alpha1
+kind: App
+metadata:
+  name: cert-manager-kapp
+  namespace: my-packages
+spec:
+  serviceAccountName: kapp
+  fetch:
+  - git:
+      url: https://github.com/vkbaba/tkg-packages
+      ref: origin/main
+      subPath: cert-manager
+  - git:
+      url: https://github.com/vkbaba/tkg-packages
+      ref: origin/main
+      subPath: contour
+  template:
+  - ytt: {}
+  deploy:
+  - kapp: {}
