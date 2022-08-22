@@ -5,7 +5,8 @@ metadata:
     tkg.tanzu.vmware.com/tanzu-package-ClusterRole: cert-manager-my-packages-cluster-role
     tkg.tanzu.vmware.com/tanzu-package-ClusterRoleBinding: cert-manager-my-packages-cluster-rolebinding
     tkg.tanzu.vmware.com/tanzu-package-ServiceAccount: cert-manager-my-packages-sa
-    kapp.k14s.io/change-rule: "delete before deleting serviceaccount"
+    kapp.k14s.io/change-rule: "delete before deleting cert-manager-requirement"
+    kapp.k14s.io/change-group.app: cert-manager
   name: cert-manager
   namespace: my-packages
 spec:
@@ -20,7 +21,8 @@ kind: ServiceAccount
 metadata:
   annotations:
     tkg.tanzu.vmware.com/tanzu-package: cert-manager-my-packages
-    kapp.k14s.io/change-group: serviceaccount
+    kapp.k14s.io/change-group.req: cert-manager-requirement
+    kapp.k14s.io/change-group.app: cert-manager
   name: cert-manager-my-packages-sa
   namespace: my-packages
 ---
@@ -29,7 +31,8 @@ kind: ClusterRole
 metadata:
   annotations:
     tkg.tanzu.vmware.com/tanzu-package: cert-manager-my-packages
-    kapp.k14s.io/change-group: serviceaccount
+    kapp.k14s.io/change-group.req: cert-manager-requirement
+    kapp.k14s.io/change-group.app: cert-manager
   name: cert-manager-my-packages-cluster-role
 rules:
 - apiGroups:
@@ -44,7 +47,8 @@ kind: ClusterRoleBinding
 metadata:
   annotations:
     tkg.tanzu.vmware.com/tanzu-package: cert-manager-my-packages
-    kapp.k14s.io/change-group: serviceaccount
+    kapp.k14s.io/change-group.req: cert-manager-requirement
+    kapp.k14s.io/change-group.app: cert-manager
   name: cert-manager-my-packages-cluster-rolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
