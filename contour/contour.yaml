@@ -6,7 +6,9 @@ metadata:
     tkg.tanzu.vmware.com/tanzu-package-ClusterRoleBinding: contour-my-packages-cluster-rolebinding
     tkg.tanzu.vmware.com/tanzu-package-Secret: contour-my-packages-values
     tkg.tanzu.vmware.com/tanzu-package-ServiceAccount: contour-my-packages-sa
-    kapp.k14s.io/change-rule: "delete before deleting serviceaccount"
+    kapp.k14s.io/change-rule.cert-manager: "upsert after upserting cert-manager"
+    kapp.k14s.io/change-rule.req: "delete before deleting contour-requirement"
+    kapp.k14s.io/change-group.app: contour
   name: contour
   namespace: my-packages
 spec:
@@ -26,7 +28,8 @@ kind: Secret
 metadata:
   annotations:
     tkg.tanzu.vmware.com/tanzu-package: contour-my-packages
-    kapp.k14s.io/change-group: serviceaccount
+    kapp.k14s.io/change-group.req: contour-requirement
+    kapp.k14s.io/change-group.app: contour
   name: contour-my-packages-values
   namespace: my-packages
 type: Opaque
@@ -36,7 +39,8 @@ kind: ServiceAccount
 metadata:
   annotations:
     tkg.tanzu.vmware.com/tanzu-package: contour-my-packages
-    kapp.k14s.io/change-group: serviceaccount
+    kapp.k14s.io/change-group.req: contour-requirement
+    kapp.k14s.io/change-group.app: contour
   name: contour-my-packages-sa
   namespace: my-packages
 ---
@@ -45,7 +49,8 @@ kind: ClusterRole
 metadata:
   annotations:
     tkg.tanzu.vmware.com/tanzu-package: contour-my-packages
-    kapp.k14s.io/change-group: serviceaccount
+    kapp.k14s.io/change-group.req: contour-requirement
+    kapp.k14s.io/change-group.app: contour
   name: contour-my-packages-cluster-role
 rules:
 - apiGroups:
@@ -60,7 +65,8 @@ kind: ClusterRoleBinding
 metadata:
   annotations:
     tkg.tanzu.vmware.com/tanzu-package: contour-my-packages
-    kapp.k14s.io/change-group: serviceaccount
+    kapp.k14s.io/change-group.req: contour-requirement
+    kapp.k14s.io/change-group.app: contour
   name: contour-my-packages-cluster-rolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
